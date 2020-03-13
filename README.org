@@ -1,6 +1,16 @@
 * conf-pub
 
-** Execute  
+** 功能设计
+1. 指定需要同步的 html 站点
+2. 指定要同步至的 confluence 站点, root 的 pageId, workspace, 以及鉴权相关信息
+3. 将指定站点下的内容同步至 confluence
+
+** 功能清单
+- [ ] 遍历 html 站点下所有页面，以同样的层级结构发布至 confluence
+- [ ] 支持图片的上传和图片链接的替换
+- [ ] 支持相对路径的链接替换
+
+** Execute
 
 - Run ~stack exec -- conf-pub-exe~ to see "We're inside the application!"
 - With ~stack exec -- conf-pub-exe --verbose~ you will see the same message, with more logging.

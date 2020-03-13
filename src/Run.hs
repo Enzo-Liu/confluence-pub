@@ -10,10 +10,14 @@ import           Data.Aeson
 import           GHC.Generics
 import           Import
 import           Network.HTTP.Req
+import qualified Data.Text as T
 
 
 run :: RIO App ()
-run = void create
+run = void $ create "index" "642819892"
+
+lsTree :: FilePath -> FilePath
+lsTree = undefined
 
 basePath :: FilePath
 basePath = "/usr/local/var/www"
@@ -25,14 +29,17 @@ cookie = header
         "cookie"
         ""
 
-create :: RIO App Int
-create = do
-        _html <- readFileBinary index
-        let html = decodeUtf8With lenientDecode _html
-        logInfo . display $ html
+update :: Int -> Text -> RIO App Int
+update pageId content = do
+  _html <- readFileBinary index
+  let html = snd . T.breakOn "<html" $ decodeUtf8With lenientDecode _html
+  return 1
+
+create :: Text -> Text -> RIO App Int
+create name ancestorId = do
         -- targetHtml <- convert html
         res <- runReq defaultHttpConfig $ do
-                let payload = getContext "index2" html
+                let payload = getContext name "<html></html>" ancestorId "EN"
                 -- One function—full power and flexibility, automatic retrying on timeouts
                 -- and such, automatic connection sharing.
                 r <- req
@@ -105,12 +112,12 @@ instance ToJSON CreateContext where
 instance FromJSON CreateContext where
         parseJSON = genericParseJSON options
 
-getContext :: Text -> Text -> CreateContext
-getContext title content = CreateContext
+getContext :: Text -> Text -> Text -> Text -> CreateContext
+getContext title content anscestorId space = CreateContext
         { _type      = "page"
-        , _space     = Space { key = "EN" }
+        , _space     = Space { key = space }
         , _title     = title
-        , _ancestors = [Ancestor { _id = "642819892" }]
+        , _ancestors = [Ancestor { _id = anscestorId }]
         , _body      = Body
                                { storage = Storage { value          = content
                                                    , representation = "storage"
