@@ -1,0 +1,64 @@
+name:                conf-pub
+version:             0.1.0.0
+github:              Enzo-Liu/conf-pub
+license:             BSD3
+author:              enzo liu
+maintainer:          liuenze6516@gmail.com
+copyright:           2020 enzo liu
+
+extra-source-files:
+- README.org
+- ChangeLog.org
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on Github at <https://github.com/Enzo-Liu/conf-pub#readme>
+
+dependencies:
+- base >= 4.11 && < 10
+- rio >= 0.1.12.0
+- req
+- aeson
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  conf-pub-exe:
+    main:                Main.hs
+    source-dirs:         app
+    dependencies:
+    - conf-pub
+    - optparse-simple
+
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+
+tests:
+  conf-pub-test:
+    main:                Spec.hs
+    source-dirs:         test
+    dependencies:
+    - conf-pub
+    - hspec
+
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N

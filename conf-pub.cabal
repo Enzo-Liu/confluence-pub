@@ -1,0 +1,78 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: e7fb39032fcc8b0fffc5a347cc5b9dc13452d4cd64fbfc8cd278a0c3f30c794d
+
+name:           conf-pub
+version:        0.1.0.0
+description:    Please see the README on Github at <https://github.com/Enzo-Liu/conf-pub#readme>
+homepage:       https://github.com/Enzo-Liu/conf-pub#readme
+bug-reports:    https://github.com/Enzo-Liu/conf-pub/issues
+author:         enzo liu
+maintainer:     liuenze6516@gmail.com
+copyright:      2020 enzo liu
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.org
+    ChangeLog.org
+
+source-repository head
+  type: git
+  location: https://github.com/Enzo-Liu/conf-pub
+
+library
+  exposed-modules:
+      Import
+      Run
+      Types
+      Util
+  other-modules:
+      Paths_conf_pub
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      aeson
+    , base >=4.11 && <10
+    , req
+    , rio >=0.1.12.0
+  default-language: Haskell2010
+
+executable conf-pub-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_conf_pub
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.11 && <10
+    , conf-pub
+    , optparse-simple
+    , req
+    , rio >=0.1.12.0
+  default-language: Haskell2010
+
+test-suite conf-pub-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      UtilSpec
+      Paths_conf_pub
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.11 && <10
+    , conf-pub
+    , hspec
+    , req
+    , rio >=0.1.12.0
+  default-language: Haskell2010
